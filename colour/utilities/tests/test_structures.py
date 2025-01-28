@@ -38,7 +38,7 @@ class TestStructure:
     """
 
     def test_Structure(self) -> None:
-        """Test :class:`colour.utilities.structures.Structure` class."""
+        """Test the :class:`colour.utilities.structures.Structure` class."""
 
         structure = Structure(John="Doe", Jane="Doe")
         assert "John" in structure
