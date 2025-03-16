@@ -349,22 +349,17 @@ class TestColourRenderingIndex:
             atol=TOLERANCE_ABSOLUTE_TESTS,
         )
 
-        np.testing.assert_allclose(
-            [
-                v
-                for s in specification_r.colorimetry_data
-                for tcs in s
-                for arr in [getattr(tcs, k) for k in ["XYZ", "uv", "UVW"]]
-                if isinstance(arr, np.ndarray)
-                for v in arr
-            ],
-            [
-                v
-                for s in specification_t.colorimetry_data
-                for tcs in s
-                for arr in [getattr(tcs, k) for k in ["XYZ", "uv", "UVW"]]
-                if isinstance(arr, np.ndarray)
-                for v in arr
-            ],
-            atol=TOLERANCE_ABSOLUTE_TESTS,
-        )
+        for data in ["XYZ", "uv", "UVW"]:
+            np.testing.assert_allclose(
+                [
+                    getattr(tcs, data)
+                    for colorimetry_data in specification_r.colorimetry_data
+                    for tcs in colorimetry_data
+                ],
+                [
+                    getattr(tcs, data)
+                    for colorimetry_data in specification_t.colorimetry_data
+                    for tcs in colorimetry_data
+                ],
+                atol=TOLERANCE_ABSOLUTE_TESTS,
+            )
